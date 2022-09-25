@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
+import MainUI from "./views/MainUI";
+import Dashboard from "./views/Dashboard";
+import ControlPanel from "./views/ControlPanel";
+import Login from "./components/mainUI/pages/Login";
+import Register from "./components/mainUI/pages/Register";
+import AuthProvider from "./authentication/AuthProvider";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainUI />}></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/create-a-new-account" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/control-panel" element={<ControlPanel />}></Route>
+        </Routes>
+      </BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </AuthProvider>
   );
 }
 
